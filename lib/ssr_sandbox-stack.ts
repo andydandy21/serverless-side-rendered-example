@@ -1,16 +1,22 @@
-import * as cdk from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as cdk from "aws-cdk-lib";
+import { Construct } from "constructs";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { Runtime } from "aws-cdk-lib/aws-lambda";
+import { join } from "path";
+import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 
 export class SsrSandboxStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const lambda = new NodejsFunction(this, "ssrSandboxLambda", {
+      runtime: Runtime.NODEJS_18_X,
+      entry: join(__dirname, "..", "lambda", "handler.tsx"),
+      handler: "handler",
+    });
+    const lambdaIntegration = new LambdaIntegration(lambda);
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'SsrSandboxQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const api = new RestApi(this, "ssrSandboxApi");
+    api.root.addMethod("GET", lambdaIntegration);
   }
 }
