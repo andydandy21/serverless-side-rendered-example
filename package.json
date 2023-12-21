@@ -6,6 +6,8 @@
   },
   "scripts": {
     "build": "tsc",
+    "deploy": "vite build && cdk deploy",
+    "destroy": "cdk destroy",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk"

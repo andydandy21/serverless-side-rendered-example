@@ -3,8 +3,9 @@ import {
   APIGatewayProxyResult,
   Context,
 } from "aws-lambda";
-import * as fs from "fs";
-import { join } from "path";
+import ReactDOMServer from "react-dom/server";
+import React from "react";
+import App from "../src/App";
 
 export async function handler(
   event: APIGatewayProxyEvent,
@@ -21,12 +22,19 @@ export async function handler(
       </head>
       <body>
         <div id="root"><!--app-html--></div>
-        <!--app-script-->
+        <script type="module" crossorigin src="https://${process.env.BUCKET_URL}/index.js"></script>
       </body>
     </html>
   `;
 
-  const html = template.replace("<!--app-html-->", "<h1>hello world</h1>");
+  const html = template.replace(
+    "<!--app-html-->",
+    ReactDOMServer.renderToString(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>,
+    ),
+  );
 
   return {
     statusCode: 200,
