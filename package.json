@@ -6,7 +6,7 @@
   },
   "scripts": {
     "deploy": "vite build && cdk deploy",
-    "destroy": "cdk destroy",
+    "destroy": "cdk destroy"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.130",
