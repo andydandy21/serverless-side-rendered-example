@@ -1,14 +1,16 @@
-# Welcome to your CDK TypeScript project
+# Serverless-Side Rendering with AWS CDK, React, and Vite Template
 
-This is a blank project for CDK development with TypeScript.
+This project serves as a template for deploying ssr react through lambda.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## Installation
+`git clone https://github.com/andydandy21/serverless-side-rendered-example.git`
+
+## Setup
+First run: `npm install` \
+Then: `cdk bootstrap`
 
 ## Useful commands
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+* `npm run deploy`   performs a vite build and cdk deploy
+* `npm run destroy`   destroys AWS assets 
+
